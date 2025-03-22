@@ -28,13 +28,13 @@ const RenderField = ({ props, field }: { props: CustomProps, field: any }) => {
     switch (fieldType) {
         case CustomFieldType.INPUT:
             return (
-                <div className='flex flex-1 items-center dark:bg-neutral-900 dark:border-neutral-700 rounded-md border border-gray-200'>
+                <div className='flex flex-1 items-center dark:bg-neutral-800 dark:border-neutral-700 rounded-md border border-gray-200'>
                     {icon}
                     <FormControl>
                         <Input
                             placeholder={placeholder}
                             {...field}
-                            className='border-0 h-11 focus-visible:ring-0 focus-visible:ring-offset-0'
+                            className='border-0 h-11 focus-visible:ring-0 focus-visible:ring-offset-0 bg-transparent!'
                             type={inputType}
                         />
                     </FormControl>
@@ -55,7 +55,7 @@ const CustomFormField = (props: CustomProps) => {
             name={name}
             render={({ field }) => (
                 <FormItem>
-                    {fieldType !== CustomFieldType.INPUT && label && (
+                    {fieldType !== CustomFieldType.CHECKBOX && label && (
                         <FormLabel>{label}</FormLabel>
                     )}
                     <RenderField props={props} field={field}/>
