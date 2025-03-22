@@ -4,11 +4,12 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
-import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
 import CustomFormField from "@/components/CustomFormField"
 import { KeyRound, LockKeyhole, Mail } from "lucide-react"
 import { loginSchema } from "@/lib/validations"
+import SubmitButton from "@/components/SubmitButton"
+import { useState } from "react"
 
 export enum CustomFieldType {
   INPUT = "input",
@@ -16,6 +17,8 @@ export enum CustomFieldType {
 }
 
 const LoginForm = () => {
+  const [isLoading, setIsLoading] = useState(false)
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -27,9 +30,17 @@ const LoginForm = () => {
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof loginSchema>) {
+    setIsLoading(true)
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values)
+
+    try {
+      console.log(values)
+      
+    } catch (error) {
+      console.log("Something went wrong: ", error);
+    }
+    setIsLoading(false)
   }
 
   return (
@@ -65,10 +76,17 @@ const LoginForm = () => {
           fieldType={CustomFieldType.INPUT}
           icon={<KeyRound className="ml-2"/>}
         />
-        <Button type="submit" className="w-full magic-btn group focus-visible:ring-purple-500 bg-purple-500  hover:bg-purple-500/90 hover:ring-purple-500 dark:hover:ring-offset-neutral-900">
-          <span className="magic-btn-span group-hover:-translate-x-96"></span>
+        <SubmitButton
+          className={`w-full 
+            ${!isLoading && `magic-btn
+              group focus-visible:ring-purple-500 hover:bg-purple-500/90
+              hover:ring-purple-500 dark:hover:ring-offset-neutral-900`
+            }
+            bg-purple-500`}
+          isLoading={isLoading}
+        >
           Se connecter
-        </Button>
+        </SubmitButton>
       </form>
     </Form>
   )
