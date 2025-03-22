@@ -10,6 +10,7 @@ import { KeyRound, LockKeyhole, Mail } from "lucide-react"
 import { loginSchema } from "@/lib/validations"
 import SubmitButton from "@/components/SubmitButton"
 import { useState } from "react"
+import { login } from "./actions"
 
 export enum CustomFieldType {
   INPUT = "input",
@@ -29,14 +30,18 @@ const LoginForm = () => {
   })
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof loginSchema>) {
+  async function onSubmit(values: z.infer<typeof loginSchema>) {
     setIsLoading(true)
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+
+    /* UNCOMMENT THIS IF YOU WANT TO USE THE LOGIN SERVICE */
+    // const formData = new FormData()
+    // formData.append('email', values.email)
+    // formData.append('password', values.password)
 
     try {
+      // await login(formData)
       console.log(values)
-      
+
     } catch (error) {
       console.log("Something went wrong: ", error);
     }
