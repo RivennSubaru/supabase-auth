@@ -11,6 +11,7 @@ import { loginSchema } from "@/lib/validations"
 import SubmitButton from "@/components/SubmitButton"
 import { useState } from "react"
 import { login } from "@/actions/auth.actions"
+import Link from "next/link"
 
 export enum CustomFieldType {
   INPUT = "input",
@@ -92,6 +93,9 @@ const LoginForm = () => {
         >
           Se connecter
         </SubmitButton>
+        <div className="flex justify-center text-gray-500">
+          <span>Pas encore de compte ? <Link href='/register' className="text-purple-500">S'inscrire</Link></span>
+        </div>
       </form>
     </Form>
   )
